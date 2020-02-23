@@ -17,20 +17,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView tvGetToken;
 
-    private String pushtoken;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tvGetToken=findViewById(R.id.tvGetToken);
+        tvGetToken = findViewById(R.id.tvGetToken);
         tvGetToken.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tvGetToken:
                 getToken();
                 break;
@@ -38,6 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getToken() {
-        PushUtil.getInstance().getToken(this);
+        PushUtil.getInstance().getToken();
     }
 }
