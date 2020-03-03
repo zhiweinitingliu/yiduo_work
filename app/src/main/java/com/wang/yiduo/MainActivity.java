@@ -3,12 +3,11 @@ package com.wang.yiduo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wang.push.PushUtil;
+import com.wang.push.PushManager;
 import com.wang.yiduo.uitls.SingleClick;
 
 
@@ -39,6 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getToken() {
-        PushUtil.getInstance().getToken();
+
     }
 }

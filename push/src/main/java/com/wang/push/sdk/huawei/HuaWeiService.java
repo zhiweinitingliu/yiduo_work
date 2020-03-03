@@ -3,6 +3,7 @@ package com.wang.push.sdk.huawei;
 import android.util.Log;
 
 import com.huawei.hms.push.HmsMessageService;
+import com.wang.push.PushManager;
 
 /**
  * @Description :
@@ -19,6 +20,6 @@ public class HuaWeiService extends HmsMessageService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.i(TAG, "receive token:" + s);
+        PushManager.getInstance().messageReceiver.onGetToken(s);
     }
 }

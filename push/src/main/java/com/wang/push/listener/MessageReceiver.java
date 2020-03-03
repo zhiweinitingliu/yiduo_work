@@ -1,4 +1,4 @@
-package com.wang.push;
+package com.wang.push.listener;
 
 /**
  * @Description :
@@ -11,9 +11,9 @@ package com.wang.push;
 public interface MessageReceiver {
 
 
-    public void onReceive();
+    void onReceive();
 
-
+    void onGetToken(String token);
 
 
 }

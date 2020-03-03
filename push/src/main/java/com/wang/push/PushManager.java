@@ -3,11 +3,12 @@ package com.wang.push;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.huawei.agconnect.config.AGConnectServicesConfig;
 import com.huawei.agconnect.config.LazyInputStream;
 import com.huawei.hms.aaid.HmsInstanceId;
+import com.wang.push.enums.ManuFacturerEnum;
+import com.wang.push.listener.MessageReceiver;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,32 +16,38 @@ import java.io.InputStream;
 /**
  * @Description :
  * @Author : wdk
- * @CretaTime : 2020/2/23 16:57
+ * @CretaTime : 2020/3/1 16:23
  * @LastModify(最终修改人) :wdk
- * @LastModifyTime(最终修改时间) : 2020/2/23 16:57
+ * @LastModifyTime(最终修改时间) : 2020/3/1 16:23
  * @LastCheckBy :wdk
  */
-public class PushUtil {
+public class PushManager {
+    private static final PushManager ourInstance = new PushManager();
 
-    private static final String TAG = "PushUtil";
-
-    private static final PushUtil ourInstance = new PushUtil();
-
-    public static PushUtil getInstance() {
+    public static PushManager getInstance() {
         return ourInstance;
     }
 
-    private PushUtil() {
+    private PushManager() {
 
     }
 
-    AGConnectServicesConfig agConnectServicesConfig;
-    HmsInstanceId hmsInstanceId;
+    public MessageReceiver messageReceiver;
 
-    public void init(Application application) {
+    public void init(Application application, MessageReceiver messageReceiver) {
+        this.messageReceiver = messageReceiver;
+        //获取判断手机制造商，初始化推送
+        ManuFacturerEnum manufacturer = ManuFacturerEnum.getManufacturer();
+        switch (manufacturer) {
+            case HUAWEI:
+                huaweiInit(application);
+                break;
+        }
+    }
 
+    private void huaweiInit(Application application) {
         //初始化华为配置
-        agConnectServicesConfig = AGConnectServicesConfig.fromContext(application);
+        AGConnectServicesConfig agConnectServicesConfig = AGConnectServicesConfig.fromContext(application);
         agConnectServicesConfig.overlayWith(new LazyInputStream(application) {
             public InputStream get(Context context) {
                 try {
@@ -50,33 +57,25 @@ public class PushUtil {
                 }
             }
         });
-        hmsInstanceId = HmsInstanceId.getInstance(application);
+        HmsInstanceId hmsInstanceId = HmsInstanceId.getInstance(application);
+        getHuaweiToken(agConnectServicesConfig, hmsInstanceId);
     }
 
-    public void getToken() {
-        Log.i(TAG, "get token: begin");
-
+    public void getHuaweiToken(final AGConnectServicesConfig agConnectServicesConfig, final HmsInstanceId hmsInstanceId) {
         // get token
         new Thread() {
             @Override
             public void run() {
-                Log.i(TAG, "get token: begin 2");
-
                 try {
                     String appId = agConnectServicesConfig.getString("client/app_id");
-                    Log.i(TAG, "get token: appId  " + appId);
                     String pushtoken = hmsInstanceId.getToken(appId, "HCM");
                     if (!TextUtils.isEmpty(pushtoken)) {
-                        Log.i(TAG, "get token:" + pushtoken);
-
-                    } else {
-                        Log.i(TAG, "get token: is empty");
+                        messageReceiver.onGetToken(pushtoken);
                     }
                 } catch (Exception e) {
-                    Log.i(TAG, "getToken failed, " + e);
-
                 }
             }
         }.start();
     }
+
 }
