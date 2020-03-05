@@ -4,6 +4,7 @@ apply plugin: 'com.hujiang.android-aspectjx'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+    flavorDimensions "channel"
     defaultConfig {
         applicationId "com.wang.yiduo"
         minSdkVersion 17
@@ -14,7 +15,7 @@ android {
     }
 
     signingConfigs {
-        config {
+        debug {
             keyAlias 'yiduo'
             keyPassword 'a902626wdk'
             storeFile file('yiduo.jks')
@@ -23,15 +24,34 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             minifyEnabled false
-            signingConfig signingConfigs.config
         }
 
         release {
             minifyEnabled false
-            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        yiduo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "艺朵网", BAIDU_CHANNEL_VALUE: "艺朵网"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "小米", BAIDU_CHANNEL_VALUE: "小米"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "百度", BAIDU_CHANNEL_VALUE: "百度"]
+        }
+        huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "华为", BAIDU_CHANNEL_VALUE: "华为"]
+        }
+        oppo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "OPPO", BAIDU_CHANNEL_VALUE: "OPPO"]
+        }
+        vivo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "VIVO", BAIDU_CHANNEL_VALUE: "VIVO"]
         }
     }
 }
@@ -44,4 +64,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(':push')
+    implementation 'com.baidu.mobstat:mtj-sdk:3.9.8.3'
 }
