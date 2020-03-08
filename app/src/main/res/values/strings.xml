@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">艺朵</string>
+
+    <!--渠道名称-->
+    <string name="baidu_channel_yiduo">艺朵网</string>
+    <string name="baidu_channel_xiaomi">小米</string>
+    <string name="baidu_channel_baidu">百度</string>
+    <string name="baidu_channel_huawei">华为</string>
+    <string name="baidu_channel_oppo">OPPO</string>
+    <string name="baidu_channel_vivo">VIVO</string>
 </resources>

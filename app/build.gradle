@@ -36,22 +36,22 @@ android {
 
     productFlavors {
         yiduo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "艺朵网", BAIDU_CHANNEL_VALUE: "艺朵网"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "艺朵网", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_yiduo"]
         }
         xiaomi {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "小米", BAIDU_CHANNEL_VALUE: "小米"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "小米", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_xiaomi"]
         }
         baidu {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "百度", BAIDU_CHANNEL_VALUE: "百度"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "百度", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_baidu"]
         }
         huawei {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "华为", BAIDU_CHANNEL_VALUE: "华为"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "华为", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_huawei"]
         }
         oppo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "OPPO", BAIDU_CHANNEL_VALUE: "OPPO"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "OPPO", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_oppo"]
         }
         vivo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "VIVO", BAIDU_CHANNEL_VALUE: "VIVO"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "VIVO", BAIDU_CHANNEL_VALUE: "@string/baidu_channel_vivo"]
         }
     }
 }
